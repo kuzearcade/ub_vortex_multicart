@@ -56,6 +56,16 @@ with open('output/games.bin', 'wb') as output:
     output.write('XENO CRISIS '.encode('utf8')) # 12
     output.write(b'\xfe\x00')
 
+    # output.write(b'\x0b\x20')
+    # 86
+    # output.write('240P TESTSUITE  '.encode('utf8')) # 16
+    # output.write(b'\xfe\x00')
+
+    # output.write(b'\x06\x20')
+    # e0
+    # output.write('SAMURAI SHODOWN V PERFECT '.encode('utf8')) # 26
+    # output.write(b'\xfe\x00')
+
 # Padding of titles
 #(26-l)/2+6
 #2  12
