@@ -13,6 +13,7 @@
 ## [uni-bios_4_0_PICKnMIX.xdelta](uni-bios_4_0_PICKnMIX.xdelta)
 
 Example syntax to apply the patch: 
+
 xdelta3 -d -s uni-bios.rom uni-bios_4_0_PICKnMIX.xdelta uni-bios-pnm.rom
 
 This patch enables PICKnMIX feature for a custom 161in1 cart, with some limitations:
