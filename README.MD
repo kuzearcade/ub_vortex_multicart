@@ -1,4 +1,4 @@
-# Patches for UNIBIOS 4.0
+# PICKnMIX patch for UNIBIOS 4.0
 
 - UNIBIOS created by [Razoola](http://unibios.free.fr)
 - Initial patch by [ArcadeTV](https://github.com/ArcadeTV/neogeo-menu)
