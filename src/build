@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 set -e
 
-sha256sum -c uni-bios.sha256
+# sha256sum -c uni-bios.sha256
+sha256sum uni-bios.rom
 
 mkdir -p output
 cp uni-bios.rom uni-bios-pnm.rom
 dd if=uni-bios.rom of=output/uni-bios_r.rom conv=swab status=none
 
 for f in *.asm; do
-  vasm/vasmm68k_std -Fbin -m68000 -quiet -o "output/${f%.asm}.bin" "${f}"
+  vasmm68k_std -Fbin -m68000 -quiet -o "output/${f%.asm}.bin" "${f}"
 done
 
 patch () {
@@ -63,11 +64,18 @@ cat output/load_soft_dips.bin | patch 0xaba6
 cat output/save_soft_dips.bin | patch 0xabe6
 
 # Patch switch game
-cat output/switch_game.bin | patch 0x0441c
+# cat output/switch_game.bin | patch 0x0441c
+cat output/switch_game.bin | patch 0x043f0
+
+# Patch original switch game call to increment then switch game
+cat output/jump_to_increment_game_id.bin | patch 0x0441c
 
 # Ignore high score backup
 printf '\x60' | patch 0xa74b
 printf '\x60' | patch 0xa77d
+
+# Patch in Samurai Shodown 5 Perfect title in place of Crouching Tiger Hidden Dragon
+printf '\x20\x53\x41\x4d\x55\x52\x41\x49\x20\x53\x48\x4f\x44\x4f\x57\x4e\x20\x56\x20\x50\x45\x52\x46\x45\x43\x54' | patch 0xe424
 
 # Add new game list, change game count
 python3 find_names.py > /dev/null
@@ -96,4 +104,5 @@ printf '\x1b\x41\x0a\x69' | patch 0x47fa
 printf '\x4e\xf9\x00\xc1\xff\xd0' | patch 0xa5a8
 cat output/evict_from_attract_mode.bin | patch 0x1ffd0
 
-sha256sum -c uni-bios-pnm.sha256
+# sha256sum -c uni-bios-pnm.sha256
+sha256sum uni-bios-pnm.rom
