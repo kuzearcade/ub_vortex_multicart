@@ -7,9 +7,20 @@ blt.b     evict
 subi.w    #0x9e,d0
 
 evict:
-cmp.w     #154,d0   ; XEVIOUS (stuck on splash screen)
+; 240P TESTSUITE (not a game)
+; cmp.w     #1,d0
+; beq       next
+
+; XEVIOUS (stuck on splash screen) original location
+; cmp.w     #154,d0
+; XEVIOUS (stuck on splash screen) new location
+cmp.w     #155,d0
+
 beq       next
-cmp.w     #126,d0   ; THE EYE OF TYPHOON (crash)
+; THE EYE OF TYPHOON (crash) original location
+; cmp.w     #126,d0
+; THE EYE OF TYPHOON (crash) new location
+cmp.w     #135,d0
 beq       next
 
 bra       exit
